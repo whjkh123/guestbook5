@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="guestbook">
+
+	<!-- PersonVo Map -->
+	<resultMap id="resultMapGuestBookVo"
+		type="com.javaex.vo.GuestBookVo">
+		<result column="no" property="no" />
+		<result column="name" property="name" />
+		<result column="password" property="password" />
+		<result column="content" property="content" />
+		<result column="content" property="content" />
+	</resultMap>
+
+	<!-- 쿼리문 작성 -->
+	<!-- Vo와 변수명이 다를 경우 #1. 'as'를 사용해 편집 가능 -->
+	<!-- Vo와 변수명이 다를 경우 #2. 'resultMap'을 사용해 편집 가능 -->
+
+	<!-- 전체 리스트 -->
+	<select id="selectList" resultType="GuestBookVo">
+		<![CDATA[
+			SELECT no,
+				   name,
+				   password,
+				   content,
+				   TO_CHAR(reg_date, 'yyyy-mm-dd hh:mi:ss') reg_date
+			FROM   guestbook
+			ORDER BY no asc
+		]]>
+	</select>
+
+	<!-- 저장 -->
+	<insert id="insert" parameterType="GuestBookVo">
+		<![CDATA[
+			INSERT INTO guestbook VALUES(seq_no.nextval, #{name}, #{password}, #{content}, sysdate)
+		]]>
+	</insert>
+
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="GuestBookVo">
+	<![CDATA[
+		DELETE FROM guestbook WHERE no = #{no} and password = #{password}
+	]]>
+	</delete>
+
+	<!-- 특정 리스트 → 수정 폼 -->
+
+
+	<!-- 수정 -->
+
+
+</mapper>
